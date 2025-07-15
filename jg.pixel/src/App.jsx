@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PhotoGallery from './components/PhotoGallery';
 
 // Main App Component
 function App() {
@@ -21,6 +22,22 @@ function App() {
               Portfolio
             </button>
             <button
+              onClick={() => setCurrentView('weddings')}
+              className={`text-lg transition-colors duration-300 ${
+                currentView === 'weddings' ? 'text-white border-b-2 border-white' : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              Weddings
+            </button>
+            <button
+              onClick={() => setCurrentView('events')}
+              className={`text-lg transition-colors duration-300 ${
+                currentView === 'events' ? 'text-white border-b-2 border-white' : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              Events
+            </button>
+            <button
               onClick={() => setCurrentView('client-area')}
               className={`text-lg transition-colors duration-300 ${
                 currentView === 'client-area' ? 'text-white border-b-2 border-white' : 'text-neutral-400 hover:text-white'
@@ -34,7 +51,10 @@ function App() {
 
       {/* Main Content Area */}
       <main className="container mx-auto p-8 py-12">
-        {currentView === 'home' ? <Gallery /> : <ClientArea />}
+        {currentView === 'home' && <Gallery />}
+        {currentView === 'weddings' && <WeddingGallery />}
+        {currentView === 'events' && <EventGallery />}
+        {currentView === 'client-area' && <ClientArea />}
       </main>
 
       {/* Footer */}
@@ -50,14 +70,11 @@ function Gallery() {
   // Sample images for the gallery. Replace these with your actual image URLs.
   // For a real application, you'd likely fetch these from a backend or a static asset folder.
   const images = [
-    { id: 'p001', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+01', alt: 'Landscape Photo' },
-    { id: 'p002', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+02', alt: 'Portrait Photo' },
-    { id: 'p003', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+03', alt: 'Cityscape Photo' },
-    { id: 'p004', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+04', alt: 'Nature Photo' },
-    { id: 'p005', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+05', alt: 'Abstract Photo' },
-    { id: 'p006', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+06', alt: 'Wildlife Photo' },
-    { id: 'p007', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+07', alt: 'Street Photo' },
-    { id: 'p008', url: 'https://placehold.co/400x300/000000/FFFFFF?text=Photo+08', alt: 'Food Photo' },
+    { id: 'p001', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Landscape Photo' },
+    { id: 'p002', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Portrait Photo' },
+    { id: 'p003', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Cityscape Photo' },
+    { id: 'p004', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Nature Photo' },
+    { id: 'p005', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Abstract Photo' },
   ];
 
   return (
@@ -66,22 +83,47 @@ function Gallery() {
       <p className="text-lg text-neutral-300 mb-12 max-w-3xl mx-auto">
         Explore a selection of our finest work, showcasing diverse styles and captivating moments.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {images.map((image) => (
-          <div key={image.id} className="relative group overflow-hidden rounded-lg shadow-xl bg-neutral-800">
-            <img
-              src={image.url}
-              alt={image.alt}
-              className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
-              // Fallback for image loading errors
-              onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/400x300/000000/FFFFFF?text=Error`; }}
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p className="text-white text-xl font-semibold">{image.alt}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <PhotoGallery images={images} />
+    </section>
+  );
+}
+
+function WeddingGallery() {
+  const images = [
+    { id: 'w001', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Wedding Photo 1' },
+    { id: 'w002', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Wedding Photo 2' },
+    { id: 'w003', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Wedding Photo 3' },
+    { id: 'w004', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Wedding Photo 4' },
+    { id: 'w005', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Wedding Photo 5' },
+  ];
+
+  return (
+    <section className="text-center">
+      <h2 className="text-5xl font-extrabold mb-12 text-white">Weddings</h2>
+      <p className="text-lg text-neutral-300 mb-12 max-w-3xl mx-auto">
+        Beautiful moments from special days.
+      </p>
+      <PhotoGallery images={images} />
+    </section>
+  );
+}
+
+function EventGallery() {
+  const images = [
+    { id: 'e001', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Event Photo 1' },
+    { id: 'e002', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Event Photo 2' },
+    { id: 'e003', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Event Photo 3' },
+    { id: 'e004', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Event Photo 4' },
+    { id: 'e005', url: 'https://res.cloudinary.com/demo/image/upload/w_400,h_300,c_scale/sample.jpg', alt: 'Event Photo 5' },
+  ];
+
+  return (
+    <section className="text-center">
+      <h2 className="text-5xl font-extrabold mb-12 text-white">Events</h2>
+      <p className="text-lg text-neutral-300 mb-12 max-w-3xl mx-auto">
+        Capturing the energy of every occasion.
+      </p>
+      <PhotoGallery images={images} />
     </section>
   );
 }
