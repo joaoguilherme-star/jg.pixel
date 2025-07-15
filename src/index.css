@@ -1,6 +1,12 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* You can add custom fonts here if needed, e.g., for Inter */
+/* Importa a fonte Inter do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/* Define a fonte Inter como padrão para o corpo do documento */
+body {
+  font-family: 'Inter', sans-serif;
+}
